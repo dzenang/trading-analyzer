@@ -1,4 +1,4 @@
-package granulo.dzenan.trading_analyzer.model;
+package granulo.dzenan.tradinganalyzer.model;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -34,6 +34,10 @@ class Statistics {
   }
 
   public int getSize() {
+    return prices.size();
+  }
+
+  public int getMaxSize() {
     return maxSize;
   }
 

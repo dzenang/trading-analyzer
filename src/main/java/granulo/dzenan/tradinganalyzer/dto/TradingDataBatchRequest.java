@@ -1,4 +1,4 @@
-package granulo.dzenan.trading_analyzer.dto;
+package granulo.dzenan.tradinganalyzer.dto;
 
 import java.util.List;
 

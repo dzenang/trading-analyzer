@@ -1,4 +1,4 @@
-package granulo.dzenan.trading_analyzer;
+package granulo.dzenan.tradinganalyzer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

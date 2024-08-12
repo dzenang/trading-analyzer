@@ -1,9 +1,8 @@
-package granulo.dzenan.trading_analyzer.model;
+package granulo.dzenan.tradinganalyzer.model;
 
-import granulo.dzenan.trading_analyzer.dto.TradingStatsResponse;
-import java.util.ArrayDeque;
+import granulo.dzenan.tradinganalyzer.dto.TradingStatsResponse;
+import granulo.dzenan.tradinganalyzer.exception.StatsNotFoundException;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
 
 public class TradingData {
@@ -28,7 +27,8 @@ public class TradingData {
     }
   }
 
-  public synchronized TradingStatsResponse calculateStats(int numberOfPoints) {
+  public synchronized TradingStatsResponse calculateStats(int numberOfPoints)
+      throws StatsNotFoundException {
     for (Statistics stats : statisticsList) {
       if (stats.getSize() == numberOfPoints) {
         return new TradingStatsResponse(
@@ -40,6 +40,7 @@ public class TradingData {
         );
       }
     }
-    throw new IllegalArgumentException("No statistics available for " + numberOfPoints + " data points.");
+    throw new StatsNotFoundException(
+        STR."No statistics available for \{numberOfPoints} data points. Use smaller window size.");
   }
 }

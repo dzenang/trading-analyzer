@@ -1,7 +1,10 @@
-package granulo.dzenan.trading_analyzer.service;
+package granulo.dzenan.tradinganalyzer.service;
 
-import granulo.dzenan.trading_analyzer.dto.TradingStatsResponse;
-import granulo.dzenan.trading_analyzer.model.TradingData;
+import static java.lang.StringTemplate.STR;
+
+import granulo.dzenan.tradinganalyzer.dto.TradingStatsResponse;
+import granulo.dzenan.tradinganalyzer.exception.StatsNotFoundException;
+import granulo.dzenan.tradinganalyzer.model.TradingData;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,13 +17,14 @@ public class TradingDataService {
   public String addBatchTradingData(String symbol, List<Double> values) {
     dataStore.computeIfAbsent(symbol, k -> new TradingData())
         .addBatch(values);
-    return "Batch data added for symbol: " + symbol;
+    return STR."Batch data added for symbol: \{symbol}";
   }
 
-  public TradingStatsResponse getStatsForWindow(String symbol, int windowSize) {
+  public TradingStatsResponse getStatsForWindow(String symbol, int windowSize)
+      throws StatsNotFoundException {
     TradingData tradingData = dataStore.get(symbol);
     if (tradingData == null) {
-      throw new IllegalArgumentException("Symbol not found: " + symbol);
+      throw new StatsNotFoundException(STR."Symbol not found: \{symbol}");
     }
     int numberOfPoints = (int) Math.pow(10, windowSize);
     return tradingData.calculateStats(numberOfPoints);
