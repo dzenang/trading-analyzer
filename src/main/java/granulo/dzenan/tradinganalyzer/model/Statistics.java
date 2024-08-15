@@ -25,6 +25,7 @@ class Statistics {
       double removedPrice = prices.removeFirst();
       sum -= removedPrice;
       sumOfSquares -= removedPrice * removedPrice;
+      // todo recalculate min and max when removing price (probably need to use second min, and second max)
     }
     prices.addLast(price);
     sum += price;
